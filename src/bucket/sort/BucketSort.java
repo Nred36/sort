@@ -25,11 +25,27 @@ public class BucketSort {
         int outPos = 0;
         for (int i = 0; i < bucket.length; i++) {
             for (int b = 0; b < bucket[i]; b++) {//runs for the number of items in the bucket
-                array[outPos++] = i;//updates the array adds 1 to the out postion so to do not output in the same spot
+                array[outPos] = i;//updates the array 
+                outPos++;//adds 1 to the out postion so to do not output in the same spot
             }
         }
     }
 
+    public static void sort2(int[] array, int max,int num) {//v
+        int[] bucket = new int[num];//creats the max number of buckets
+        for (int i = 0; i < array.length; i++) {
+            bucket[(array[i]*num)/(max+1)]++;//adds 1 to the the number of array in bucket
+        }
+
+        int outPos = 0;
+        for (int i = 0; i < bucket.length; i++) {
+            for (int b = 0; b < bucket[i]; b++) {//runs for the number of items in the bucket
+                array[outPos] = i;//updates the array 
+                outPos++;//adds 1 to the out postion so to do not output in the same spot
+            }
+        }
+    }
+    
     public static void main(String[] args) {
         long t1, t2, t3;
         Scanner sc = new Scanner(System.in);
@@ -50,6 +66,11 @@ public class BucketSort {
             System.out.print(nums[i] + ", ");
         }
         t3 = System.currentTimeMillis();
-        System.out.print("\nRandomizing and Displaying " + (double)(t2 - t1)/1000 + "s\nSorting and displaying: " + (double)(t3 - t2)/1000 + "s");
+        System.out.print("\nRandomizing and Displaying " + (double) (t2 - t1) / 1000 + "s\nSorting and displaying: " + (double) (t3 - t2) / 1000 + "s");
+
+        /* if (sc.nextLine().equalsIgnoreCase("Y")) {
+         int search = sc.nextInt();
+            
+         }*/
     }
 }
