@@ -16,7 +16,7 @@ public class BucketSort {
     /**
      * @param args the command line arguments
      */
-    public static void sort(int[] array, int max) {//v
+    public static void sort1(int[] array, int max) {//v
         int[] bucket = new int[max + 1];//creats the max number of buckets
         for (int i = 0; i < array.length; i++) {
             bucket[array[i]]++;//adds 1 to the the number of array in bucket
@@ -31,28 +31,44 @@ public class BucketSort {
         }
     }
 
-    public static void sort2(int[] array, int max,int num) {//v
-        int[] bucket = new int[num];//creats the max number of buckets
+    public static void sort2(int[] array, int max, int num) {//v
+        int[][] bucket = new int[num][num];//creats the max number of buckets
         for (int i = 0; i < array.length; i++) {
-            bucket[(array[i]*num)/(max+1)]++;//adds 1 to the the number of array in bucket
+            bucket[(array[i] * num) / (max + 1)][0] = array[i];
+            bucket[(array[i] * num) / (max + 1)][1]++;//adds 1 to the the number of array in bucket
         }
-
         int outPos = 0;
         for (int i = 0; i < bucket.length; i++) {
-            for (int b = 0; b < bucket[i]; b++) {//runs for the number of items in the bucket
-                array[outPos] = i;//updates the array 
-                outPos++;//adds 1 to the out postion so to do not output in the same spot
+            for (int b = 0; b < bucket[i][1]; b++) {
+                array[outPos] = bucket[i][0];
+                outPos++;
             }
         }
     }
-    
+
+    public static void sort3(int[] array, int max, int num) {//v
+        int[][] bucket = new int[num][num];//creats the max number of buckets
+        for (int i = 0; i < array.length; i++) {
+            bucket[(array[i] * num) / (max + 1)][0] = array[i];
+            bucket[(array[i] * num) / (max + 1)][1]++;//adds 1 to the the number of array in bucket
+        }
+        int outPos = 0;
+        for (int i = 0; i < bucket.length; i++) {
+            for (int b = 0; b < bucket[i][1]; b++) {
+                array[outPos] = bucket[i][0];
+                outPos++;
+            }
+        }
+    }
+
     public static void main(String[] args) {
         long t1, t2, t3;
         Scanner sc = new Scanner(System.in);
         System.out.println("Maximium Value");
         int max = sc.nextInt();
         System.out.println("Amount of numbers");
-        int[] nums = new int[sc.nextInt()];
+        int num = sc.nextInt();
+        int[] nums = new int[num];
         t1 = System.currentTimeMillis();
         System.out.println("Random Order: ");
         for (int i = 0; i < nums.length; i++) {
@@ -60,7 +76,9 @@ public class BucketSort {
             System.out.print(nums[i] + ", ");
         }
         t2 = System.currentTimeMillis();
-        sort(nums, max);
+        sort1(nums, max);
+        //sort2(nums, max, num);
+        //sort3(nums, max, num);
         System.out.println("\n\nSorted: ");
         for (int i = 0; i < nums.length; i++) {
             System.out.print(nums[i] + ", ");
